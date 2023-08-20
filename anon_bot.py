@@ -118,4 +118,3 @@ def chatting(message):
                 id_connected = cur.fetchone()[1]
                 bot.send_message(id_connected, message.text)
         cur.close()
-        
