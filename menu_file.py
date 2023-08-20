@@ -3,7 +3,7 @@ from bot_info_file import bot
 
 
 def menu(message):
-    menu_keyboard = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True, one_time_keyboard=True)
+    menu_keyboard = types.ReplyKeyboardMarkup(row_width=3, resize_keyboard=True, one_time_keyboard=False)
     button_stories = types.KeyboardButton('Истории пользователей')
     button_calendar = types.KeyboardButton('Календарь')
     button_chat = types.KeyboardButton('Чат')

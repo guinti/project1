@@ -10,6 +10,7 @@ from menu_file import menu
 import stories_file
 from stories_file import stories
 # import sending_facts
+import anon_bot
 import sqlite3
 
 
@@ -19,11 +20,8 @@ import sqlite3
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    registr = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=True)  # кнопка
-    button = types.KeyboardButton('Зарегистрироваться')  # последнее - id кнопки
-    registr.add(button)  # добавляем кнопку к созданному "окну" registr
     bot.send_message(message.chat.id, 'Бла-бла-бла наш бот бла-бла-бла',
-                     parse_mode='html', reply_markup=registr)
+                     parse_mode='html')
     time.sleep(1)
     options = ["Вариант 1", "Вариант 2", "Вариант 3"]
     bot.send_poll(message.chat.id, "Выберите ваш любимый вариант:", options, is_anonymous=False,
