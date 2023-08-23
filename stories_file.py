@@ -2,7 +2,6 @@ from telebot import types
 
 import writing_stories
 
-
 from bot_info_file import bot, conn
 
 
@@ -79,12 +78,12 @@ def continue_reading(call):
         offset = cur.fetchone()[0]
         button_prev_story_part = types.InlineKeyboardButton('Предыдущий текст',
                                                             callback_data='read_stories' + str(offset - 1))
-    buttons_list=[]
+    buttons_list = []
     buttons_list.append(button_prev_story_part)
     button_continue_story = types.InlineKeyboardButton('Продолжение',
                                                        callback_data='continue' + str(int(list_number) + 1) + str(
                                                            writer_id))
-    cur.execute('SELECT * FROM stories WHERE id = ? AND page = ?', (writer_id, int(list_number)+1))
+    cur.execute('SELECT * FROM stories WHERE id = ? AND page = ?', (writer_id, int(list_number) + 1))
     if cur.fetchone() is not None:
         buttons_list.append(button_continue_story)
     read_story_keyboard.add(*buttons_list)

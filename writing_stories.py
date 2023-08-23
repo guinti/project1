@@ -1,5 +1,4 @@
 from telebot import types
-import sqlite3
 
 from bot_info_file import bot, conn
 

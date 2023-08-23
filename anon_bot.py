@@ -1,13 +1,7 @@
-import telebot
 import time
 from telebot import types
 from bot_info_file import bot
 from bot_info_file import conn
-
-cur = conn.cursor()
-cur.execute(
-    'CREATE TABLE IF NOT EXISTS poll_dictionary (poll_id integer, message_id integer, poll_question varchar, poll_options varchar)')
-conn.commit()
 
 
 @bot.message_handler(func=lambda message: message.text.lower() == "чат")
@@ -92,7 +86,7 @@ def handle_poll_answer(pollAnswer):
         cur.close()
 
 
-@bot.message_handler()
+@bot.message_handler(func=lambda message: message.text.lower() not in ['/start', "чат", "истории пользователей", "календарь", "меню", 'Методики', 'Редактор целей'])
 def chatting(message):
     cur=conn.cursor()
     cur.execute("SELECT * FROM waiting_for_chat WHERE id=?", (message.chat.id,))
