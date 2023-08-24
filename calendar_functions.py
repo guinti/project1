@@ -1,7 +1,7 @@
 from telebot import types
 from bot_info_file import bot, conn
 import datetime
-import re
+
 
 months_of_a_year = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
                     "Ноябрь",
@@ -82,7 +82,15 @@ def calendar_keyboard(year, month, chat_id):
         day_of_week += 1
         last -= 1
     cur.close()
-    return calendar_keyboard.add(*next_buttons)
+    calendar_keyboard.add(*next_buttons)
+    button_graph_info = types.InlineKeyboardButton("График настроения за последние:", callback_data='nothing')
+    calendar_keyboard.add(button_graph_info)
+    button_graph_12 = types.InlineKeyboardButton("1 год", callback_data='graph' + 'g' + str(year) + str(month))
+    button_graph_6 = types.InlineKeyboardButton("6 месяцев", callback_data='graph' + '6' + str(year) + str(month))
+    button_graph_3 = types.InlineKeyboardButton("3 месяца", callback_data='graph' + '3' + str(year) + str(month))
+    button_graph_1 = types.InlineKeyboardButton("1 месяц", callback_data='graph' + '1' + str(year) + str(month))
+
+    return calendar_keyboard.add(button_graph_12, button_graph_6, button_graph_3, button_graph_1)
 
 
 def day_step(message, row):
@@ -97,7 +105,7 @@ def day_step(message, row):
                     ('', row[0], row[3], row[4], row[5]))
         conn.commit()
         bot.send_message(row[0], 'Текст удален')
-    elif message[0]=='/':
+    elif message[0] == '/':
         cur.execute('UPDATE calendar SET smile=? WHERE id=? AND year=? AND month=? AND day=?',
                     (message[1:], row[0], row[3], row[4], row[5]))
         conn.commit()
