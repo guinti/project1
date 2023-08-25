@@ -2,6 +2,7 @@ import telebot
 import sqlite3
 import os
 from dotenv import load_dotenv
+import datetime
 
 load_dotenv()
 
@@ -37,5 +38,20 @@ cur.execute('CREATE TABLE IF NOT EXISTS calendar (id integer, smile varchar, not
 # cur.execute('INSERT INTO calendar(id, mood, smile, notes, year, month, day) VALUES(?, ?, ?, ?, ?, ?, ?)', (97124558, 3, '🥵🧐', "ыхыыхыы", 2023, 8, 7))
 # cur.execute('INSERT INTO calendar(id, mood, smile, notes, year, month, day) VALUES(?, ?, ?, ?, ?, ?, ?)', (97124558, 2, '', "", 2023, 8, 2))
 # cur.execute('INSERT INTO calendar(id, mood, smile, notes, year, month, day) VALUES(?, ?, ?, ?, ?, ?, ?)', (97124558, 3, '🧐', "", 2023, 8, 16))
+cur.execute('CREATE TABLE IF NOT EXISTS purposes (purpose_above integer, purpose varchar, id integer, day_finish date, done_percentage integer,'
+            ' part_of_purpose_above integer, subgoal_amount integer, subgoal_number integer)')
+# cur.execute('INSERT INTO purposes (purpose_above, purpose, id, day_finish, done_percentage,'
+#             ' part_of_purpose_above, subgoal_amount, subgoal_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (0, "помощь", 97124558,
+#                 datetime.datetime.strptime("2023-09-24", "%Y-%m-%d").date(), 0, 10, 6, 1))
+# cur.execute('INSERT INTO purposes (purpose_above, purpose, id, day_finish, done_percentage,'
+#             ' part_of_purpose_above, subgoal_amount, subgoal_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (0, "помощь", 97124558,
+#                 datetime.datetime.strptime("2023-09-24", "%Y-%m-%d").date(), 0, 10, 6, 1))
+# cur.execute('INSERT INTO purposes (purpose_above, purpose, id, day_finish, done_percentage,'
+#             ' part_of_purpose_above, subgoal_amount, subgoal_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (0, "помощь", 97124558,
+#                 datetime.datetime.strptime("2023-09-24", "%Y-%m-%d").date(), 0, 10, 6, 1))
+# cur.execute('INSERT INTO purposes (purpose_above, purpose, id, day_finish, done_percentage,'
+#             ' part_of_purpose_above, subgoal_amount, subgoal_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (0, "помощь", 97124558,
+#                 datetime.datetime.strptime("2023-09-24", "%Y-%m-%d").date(), 100, 10, 6, 1))
 conn.commit()
+
 cur.close()

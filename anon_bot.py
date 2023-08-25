@@ -86,7 +86,7 @@ def handle_poll_answer(pollAnswer):
         cur.close()
 
 
-@bot.message_handler(func=lambda message: message.text.lower() not in ['/start', "чат", "истории пользователей", "календарь", "меню", 'Методики', 'Редактор целей'])
+@bot.message_handler(func=lambda message: message.text.lower() not in ['/start', "чат", "истории пользователей", "календарь", "меню", 'методики', 'редактор целей'])
 def chatting(message):
     cur=conn.cursor()
     cur.execute("SELECT * FROM waiting_for_chat WHERE id=?", (message.chat.id,))

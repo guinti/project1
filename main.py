@@ -13,6 +13,8 @@ from stories_file import stories
 import anon_bot
 import calendar_file
 import mood_graphs
+import targets_file
+import methods_file
 import sqlite3
 
 

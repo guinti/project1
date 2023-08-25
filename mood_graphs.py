@@ -1,4 +1,3 @@
-from telebot import types
 import datetime
 import io
 import matplotlib
@@ -29,16 +28,13 @@ def graph_function(call):
             day = get_days_in_month(month, year) - j
             cur.execute('SELECT mood FROM calendar WHERE id=? AND year=? AND month=? AND day=?',
                         (call.from_user.id, year, month, day))
-            print(year, month, day)
             mood = cur.fetchone()
             if mood is not None:
-                print(111)
                 moods.insert(0, int(mood[0]))
                 date_string = str(year) + "-" + str(month) + "-" + str(day)  # Формат: ГГГГ-ММ-ДД
                 date = datetime.datetime.strptime(date_string, "%Y-%m-%d")
                 dates.insert(0, date.date())
 
-    print(dates)
     plt.plot(dates, moods)
     plt.xlabel('Дни')
     plt.ylabel('Настроение')
