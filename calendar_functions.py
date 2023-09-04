@@ -12,7 +12,7 @@ def get_days_in_month(month, year):
     if month in [1, 3, 5, 7, 8, 10, 12]: return 31
     if month in [4, 6, 9, 11]: return 30
     if month == 2:
-        if year in [2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056]:
+        if year in [2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096, 2100]:
             return 29
         else:
             return 28

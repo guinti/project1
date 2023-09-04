@@ -36,7 +36,7 @@ def reading(call):
         write_story_keyboard.add(button_write_story)
         bot.edit_message_text("Историй еще нет. Ваша может стать первой", call.message.chat.id,
                               call.message.message_id, reply_markup=write_story_keyboard)
-    else:
+    elif row is not None:
         offset = row[0]
         writer_id = row[1]
         page = row[2] + 1
@@ -59,7 +59,11 @@ def reading(call):
         read_story_keyboard.add(*buttons_list)
         bot.edit_message_text(story_text, call.message.chat.id,
                               call.message.message_id, reply_markup=read_story_keyboard)
+    else:
+        bot.edit_message_text("К сожалению данная история удалена", call.message.chat.id,
+                              call.message.message_id)
     cur.close()
+
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('continue'))

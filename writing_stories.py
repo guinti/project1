@@ -101,6 +101,7 @@ def change(call):
                 conn.commit()
             cur.execute('SELECT COUNT(*) FROM stories',)
             row_count = cur.fetchone()[0] + 1
+            print(row_count)
             while (row_deleted <= row_count):  #очень медленно мб, мб изменю
                 row_deleted += 1
                 cur.execute('UPDATE stories SET row_number = ? WHERE row_number = ?', (row_deleted-2, row_deleted - 1))
