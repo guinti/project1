@@ -20,13 +20,13 @@ def chat(message):
         chat_keyboard = types.InlineKeyboardMarkup(row_width=3)
         button_start_chat = types.InlineKeyboardButton('Подключиться к анонимному чату', callback_data='start_chat')
         chat_keyboard.add(button_start_chat)
-        bot.send_message(message.chat.id, "Анонимный чат бла бла бла", reply_markup=chat_keyboard)  # исправить
+        bot.send_message(message.chat.id, "В анонимном чате вы можете обсудить волнующие вас проблемы с людьми,"
+                                          " которым это близко", reply_markup=chat_keyboard)  # исправить
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('start_chat'))
 def chatting(call):
-    bot.edit_message_text("Анонимный чат бла бла бла", call.message.chat.id, call.message.message_id)
-    options = ["любая тема", "тревожность", "тяжелое событие", "стресс", "другое"]
+    options = ["любая тема", "тревожность", "прокрастинация", "стресс", "другое"]
     poll_options = options[0]
     for i in range(1, 5):
         poll_options += ',' + options[i]
@@ -41,27 +41,12 @@ def chatting(call):
     cur.close()
 
 
-@bot.poll_answer_handler()
-def handle_poll_answer(pollAnswer):
-    poll_id = pollAnswer.poll_id
-    user = pollAnswer.user.id
-    chosen = pollAnswer.option_ids[0]
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM poll_dictionary WHERE poll_id=?', (poll_id,))
-    row = cur.fetchone()
-    message_id = row[1]
-    poll_question = row[2]
-    bot.stop_poll(user, message_id)
-    cur.execute('DELETE FROM poll_dictionary WHERE poll_id=?', (poll_id,))
-    conn.commit()
-    poll_options = row[3]
-    options_list = poll_options.split(',')
-    chosen = options_list[chosen]
+def pull_theme_chat(cur, user, chosen):
     cur.execute("SELECT * FROM chatting WHERE id=?", (user,))
     is_chatting = cur.fetchone()
     cur.execute("SELECT * FROM waiting_for_chat WHERE id=?", (user,))
     is_waiting = cur.fetchone()
-    if poll_question == "На какую тему вы хотели бы пообщаться?" and is_chatting is None and is_waiting is None:
+    if is_chatting is None and is_waiting is None:
         time.sleep(1)
         bot.send_message(user, 'Выполняется поиск чата. Когда он будет найден, вам придет сообщение')
         if chosen != 'любая тема':
@@ -86,7 +71,7 @@ def handle_poll_answer(pollAnswer):
         cur.close()
 
 
-@bot.message_handler(func=lambda message: message.text.lower() not in ['/start', "чат", "истории пользователей", "календарь", "меню", 'методики', 'редактор целей'])
+@bot.message_handler(func=lambda message: message.text.lower() not in ["стоп", '/start', "чат", "истории пользователей", "календарь", "меню", 'методики', 'редактор целей'])
 def chatting(message):
     cur=conn.cursor()
     cur.execute("SELECT * FROM waiting_for_chat WHERE id=?", (message.chat.id,))
@@ -104,8 +89,8 @@ def chatting(message):
                 conn.commit()
                 bot.send_message(message.chat.id, 'Поиск чата отменен')
             else:
-                bot.send_message(message.chat.id, 'Чат завершен бла бла бла')
-                bot.send_message(id_connected[0], 'Чат завершен бла бла бла')
+                bot.send_message(message.chat.id, 'Чат завершен')
+                bot.send_message(id_connected[0], 'Чат завершен вторым участником')
         else:
             if waiting is None:
                 cur.execute('SELECT * FROM chatting WHERE id=?', (message.chat.id,))

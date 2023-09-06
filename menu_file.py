@@ -9,7 +9,6 @@ def menu(message):
     button_chat = types.KeyboardButton('Чат')
     button_methods = types.KeyboardButton('Методики')
     button_goal = types.KeyboardButton('Редактор целей')
-    # мб надо добавить кнопку для перепрохождения теста( или просто прописать что есть команда start)
     menu_keyboard.add(button_calendar, button_methods, button_chat, button_goal, button_stories)
-    text = '\"МУР\"'
-    bot.send_message(message.chat.id, text, reply_markup=menu_keyboard)
+    text = 'Есть 5 разделов бота, все они представлены кнопками под окошком ввода. Кроме кнопок меню есть так же функция /start, ее можно использовать для перепрохождения начального теста.'
+    bot.send_message(message, text, reply_markup=menu_keyboard)

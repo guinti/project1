@@ -11,7 +11,7 @@ def stories(message):
     button_read_stories = types.InlineKeyboardButton('Читать истории', callback_data='read_stories0')
     button_write_story = types.InlineKeyboardButton('Мои истории', callback_data='write_story')
     stories_keyboard.add(button_read_stories, button_write_story)
-    bot.send_message(message.chat.id, "Здесь вы можете читать и писать истории бла бла бла",
+    bot.send_message(message.chat.id, "Здесь вы можете читать истории пользователей и писать свои(до 9 историй)",
                      # исправить
                      reply_markup=stories_keyboard)
 

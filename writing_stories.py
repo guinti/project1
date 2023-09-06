@@ -18,7 +18,7 @@ def writing(call):
         person_stories_keyboard.add(button_read_my_stories)
     else:
         person_stories_keyboard.add(button_read_my_stories, button_write_story)
-    bot.edit_message_text("Написать истории бла бла. Правила написания бла бла 4096 бла бла", call.message.chat.id,
+    bot.edit_message_text("Написать истории. Вы можете написать максимум 9 историй длиной до 4096 символов", call.message.chat.id,
                           call.message.message_id, reply_markup=person_stories_keyboard)
     cur.close()
 
@@ -38,7 +38,7 @@ def writing(call):
         bot.send_message(message.chat.id, 'Ваша история добавленаВ)')
         cur.close()
 
-    bot.edit_message_text("Напишите свою сторию. Правила написания бла бла 4096 бла бла кряу", call.message.chat.id,
+    bot.edit_message_text("Напишите свою сторию. Вы можете написать максимум 9 историй длиной до 4096 символов", call.message.chat.id,
                           call.message.message_id)
     bot.register_next_step_handler(call.message, last_step)
 
@@ -67,7 +67,8 @@ def wrote(call):
         another_person_stories_keyboard = types.InlineKeyboardMarkup()
         write_my_story = types.InlineKeyboardButton('Написать историю', callback_data='write_my_story')
         another_person_stories_keyboard.add(my_prev_story, write_my_story)
-        bot.edit_message_text("Написать историю бла бла. Это будет Ваша " + str(int(page)) + ' история',
+        bot.edit_message_text("Написать историю. Вы можете написать максимум 9 историй длиной до 4096 символов."
+                              " Это будет Ваша " + str(int(page)) + ' история',
                               call.message.chat.id,
                               call.message.message_id, reply_markup=another_person_stories_keyboard)
     else:
@@ -117,5 +118,6 @@ def change(call):
     text = cur.fetchone()[3]
     bot.edit_message_text(text, call.message.chat.id, call.message.message_id)
     bot.send_message(call.from_user.id,
-                     "Измените свою историю. Если ваше сообщение будет состоять только из \".\"(точки), ваша история будет удалена. 4096 бла бла кряу")
+                     "Измените свою историю. Если ваше сообщение будет состоять только из \".\"(точки), ваша история"
+                     " будет удалена. Длина истории - до 4096 символов")
     bot.register_next_step_handler(call.message, lambda message: last_step(message, page))

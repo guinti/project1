@@ -12,7 +12,7 @@ def calendar(message):
     month = today.month
     year = today.year
     keyboard = calendar_keyboard(year, month, message.chat.id)
-    bot.send_message(message.chat.id, "Календарь настроения", reply_markup=keyboard)  # исправить
+    bot.send_message(message.chat.id, "Календарь настроения", reply_markup=keyboard)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('calendar'))
@@ -120,8 +120,9 @@ def start_diary(call):
     keyboard = types.InlineKeyboardMarkup()
     button = types.InlineKeyboardButton("Заполнить дневник", callback_data='diary' + text)
     keyboard.add(button)
-    bot.edit_message_text("бла бла бла что-то там(если дневник не заполнить, ляляля)", call.message.chat.id,
-                          call.message.message_id, reply_markup=keyboard)
+    bot.edit_message_text("Благодаря заполнению дневника вы сможете потом вернуться к тому, что написали: вспомнить, "
+                          "что повлияло на ваши чувства тогда и проанализировать информацию по нескольким дням",
+                          call.message.chat.id, call.message.message_id, reply_markup=keyboard)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('diary'))
