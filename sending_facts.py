@@ -75,7 +75,7 @@ def send_message_purpose2(question_3, question_4):
 # Запускаем планирование в отдельном потоке
 def run_schedule():
     schedule.every().day.at("09:00").do(send_message_facts)
-    schedule.every().day.at('13:03').do(send_message_purpose)
+    schedule.every().day.at('10:00').do(send_message_purpose)
     schedule.every().day.at('14:00').do(lambda: send_message_purpose2(1, 1))
     schedule.every().day.at('18:00').do(lambda: send_message_purpose2(2, 1))
     schedule.every().day.at('21:00').do(lambda: send_message_purpose2(0, 2))
