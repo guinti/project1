@@ -283,7 +283,7 @@ def subpurpose_start(call):
                             cur.execute("SELECT * FROM purposes WHERE id=? AND subgoal_number=?",
                                         (chat_id, subgoal_num // 10))
                             purpose_date = cur.fetchone()[3]
-                            if datetime.datetime.strptime(purpose_date, "%Y-%m-%d").date() < date.date():
+                            if purpose_date is not None and datetime.datetime.strptime(purpose_date, "%Y-%m-%d").date() < date.date():
                                 bot.send_message(chat_id, "Нельзя поставить дату, превышающую дату (под)цели")
                                 bot.register_next_step_handler(call.message,
                                                                lambda mess: subpurpose_fill_1step(mess.text, chat_id,

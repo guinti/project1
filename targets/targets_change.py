@@ -19,9 +19,14 @@ def purpose_change(call):
     row = cur.fetchone()
     cur.close()
     if row is not None:
-        bot.send_message(call.from_user.id,
+        if row[3] is not None:
+            bot.send_message(call.from_user.id,
                          row[1] + " " + row[3] + '\nВы можете изменить дату завершения или название. Выберите:',
                          reply_markup=keyboard_change_purpose)
+        else:
+            bot.send_message(call.from_user.id,
+                             row[1] + '\nВы можете изменить дату завершения или название. Выберите:',
+                             reply_markup=keyboard_change_purpose)
     bot.delete_message(call.from_user.id, call.message.message_id)
 
 
