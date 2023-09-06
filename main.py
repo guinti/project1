@@ -12,7 +12,7 @@ from sending_facts import run_schedule
 import anon_bot
 import calendar_file
 import mood_graphs
-import project1.targets.targets_file
+from targets import targets_file
 import methods_file
 
 schedule_thread = threading.Thread(target=run_schedule)
